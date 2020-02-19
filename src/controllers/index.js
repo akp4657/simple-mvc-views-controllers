@@ -15,3 +15,30 @@ const hostPage1 = (req, res) => {
 const hostPage2 = (req, res) => {
   res.sendFile(path.resolve(`${__dirname}/../../views/page2.html`));
 };
+
+const notFound = (req, res) => {
+  res.status(404).sendFile(path.resolve(`${__dirname}/../../views/notFound.html`));
+};
+
+const getName = (req, res) => {
+  res.json({name});
+};
+
+const setName = (req, res) => {
+  if(!req.body.firstname || !req.body.lastname) {
+    return res.status(400).json({error: 'firstname and lastname are required'});
+  }
+
+  name = `${req.body.firstname} ${req.body.lastname}`;
+  return res.json({name});
+  console.dir(req.body);
+};
+
+module.exports = {
+  page1: hostPage1,
+  page2: hostPage2,
+  index: hostIndex,
+  notFound,
+  getName,
+  setName,
+}
